@@ -10,7 +10,7 @@
     android:paddingLeft="16dp"
     android:paddingRight="16dp"
     android:paddingBottom="24dp"
-    tools:context=".LoginActivity">
+    tools:context=".RegisterActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -47,6 +47,44 @@
             android:background="@drawable/corners_bg"
             android:layout_marginBottom="16dp">
             <EditText
+                android:id="@+id/nameInput"
+                android:layout_margin="2dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="13dp"
+                android:paddingTop="16dp"
+                android:paddingRight="13dp"
+                android:paddingBottom="16dp"
+                android:hint="Имя"
+                android:textColor="@color/gray"
+                android:textColorHint="@color/gray"
+                android:background="@color/brown"></EditText>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:background="@drawable/corners_bg">
+            <EditText
+                android:id="@+id/surnameInput"
+                android:layout_margin="2dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="13dp"
+                android:paddingTop="16dp"
+                android:paddingRight="13dp"
+                android:paddingBottom="16dp"
+                android:hint="Фамилия"
+                android:textColor="@color/gray"
+                android:textColorHint="@color/gray"
+                android:background="@color/brown"></EditText>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:background="@drawable/corners_bg">
+            <EditText
                 android:id="@+id/emailInput"
                 android:layout_margin="2dp"
                 android:layout_width="match_parent"
@@ -63,6 +101,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
             android:background="@drawable/corners_bg">
             <EditText
                 android:id="@+id/passwordInput"
@@ -80,19 +119,39 @@
                 android:textColorHint="@color/gray"
                 android:background="@color/brown"></EditText>
         </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:background="@drawable/corners_bg">
+            <EditText
+                android:id="@+id/repeatPasswordInput"
+                android:layout_margin="2dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="13dp"
+                android:paddingTop="16dp"
+                android:paddingRight="13dp"
+                android:paddingBottom="16dp"
+                android:hint="Повторите пароль"
+                android:ems="10"
+                android:inputType="textPassword"
+                android:textColor="@color/gray"
+                android:textColorHint="@color/gray"
+                android:background="@color/brown"></EditText>
+        </LinearLayout>
 
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
-
         <com.google.android.material.button.MaterialButton
-            android:onClick="loginUser"
-            android:id="@+id/loginButton"
+            android:onClick="registerUser"
+            android:id="@+id/registerButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Войти"
+            android:text="Зарегистироваться"
             android:paddingTop="13dp"
             android:paddingBottom="13dp"
             android:textAllCaps="false"
@@ -102,11 +161,11 @@
             app:backgroundTint="@color/orange"
             app:cornerRadius="3dp" />
         <com.google.android.material.button.MaterialButton
-            android:onClick="moveToRegisterScreen"
-            android:id="@+id/registerButton"
+            android:onClick="moveToLoginScreen"
+            android:id="@+id/loginButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Регистрация"
+            android:text="У меня уже есть аккаунт"
             android:paddingTop="13dp"
             android:paddingBottom="13dp"
             android:textAllCaps="false"
