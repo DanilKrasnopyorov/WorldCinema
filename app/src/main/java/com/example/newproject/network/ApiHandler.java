@@ -13,7 +13,7 @@ public class ApiHandler {
 //
 //    public ApiHandler(){
 //        HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
-//        interceptor.setLever(HttpLoggingInterceptor.Lever.BODY);
+//        interceptor.setLevel(HttpLoggingInterceptor.Lever.BODY);
 //        OkHttpClient.Builder client = new OkHttpClient.Builder()
 //                .addInterceptor(interceptor);
 //        retrofit = new Retrofit.Builder()
