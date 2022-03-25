@@ -1,36 +1,58 @@
 package com.example.newproject.network;
 
+import androidx.annotation.NonNull;
+
 import com.example.newproject.network.service.ApiService;
 
+import java.io.IOException;
+
+import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
+import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ApiHandler {
-//    private static ApiHandler mInstance;
-//    private static final String BASE_URL = "https://cinema.areas.su";
-//    private Retrofit retrofit;
-//
-//    public ApiHandler(){
-//        HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
-//        interceptor.setLevel(HttpLoggingInterceptor.Lever.BODY);
-//        OkHttpClient.Builder client = new OkHttpClient.Builder()
-//                .addInterceptor(interceptor);
-//        retrofit = new Retrofit.Builder()
-//                .baseUrl(BASE_URL)
-//                .client(client.build())
-//                .addConverterFactory(GsonConverterFactory.create())
-//                .build();
-//        ErrorUtils.retrofit = retrofit;
-//    }
-//    //будет получать экземпляр нашего ApiHandler
-//    public static ApiHandler getInstance(){
-//        if(mInstance == null)
-//            mInstance = new ApiHandler();
-//        return mInstance;
-//    }
-//    //класс у которого вызываем запросы к API
-//    public ApiService getService(){
-//        return retrofit.create(ApiService.class);
-//    }
+    private static ApiHandler mInstance;
+    private static final String BASE_URL = "http://cinema.areas.su";
+    private Retrofit retrofit;
+    private Integer token = 0;
+
+    public ApiHandler(){
+
+        retrofit = new Retrofit.Builder()
+                .baseUrl(BASE_URL)
+                .client(getOkHttp())
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+    }
+    private OkHttpClient getOkHttp(){
+        HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
+        interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
+        OkHttpClient client = new OkHttpClient.Builder()
+            .addInterceptor(interceptor)
+            .addInterceptor(new Interceptor() {
+                    @NonNull
+                    @Override
+                    public Response intercept(@NonNull Chain chain) throws IOException {
+                        Request newRequest = chain.request().newBuilder()
+                                .addHeader("Authorization", "Bearer " + token)
+                                .build();
+                        return chain.proceed(newRequest);
+                    }
+                }).build();
+        return client;
+    }
+    //будет получать экземпляр нашего ApiHandler
+    public static ApiHandler getInstance(){
+        if(mInstance == null)
+            mInstance = new ApiHandler();
+        return mInstance;
+    }
+    //класс у которого вызываем запросы к API
+    public ApiService getService(){
+        return retrofit.create(ApiService.class);
+    }
 }

@@ -5,10 +5,24 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Toast;
+
+import com.example.newproject.network.ApiHandler;
+import com.example.newproject.network.ErrorUtils;
+import com.example.newproject.network.models.LoginBody;
+import com.example.newproject.network.models.LoginResponse;
+import com.example.newproject.network.models.RegisterBody;
+import com.example.newproject.network.service.ApiService;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class RegisterActivity extends AppCompatActivity {
     private EditText nameField;
@@ -23,7 +37,8 @@ public class RegisterActivity extends AppCompatActivity {
     private String repeatPassword;
     private AlertDialog.Builder alertDialogBuilder;
     private AlertDialog alertDialog;
-//    usescleartexttraffic
+
+    ApiService service = ApiHandler.getInstance().getService();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -107,10 +122,62 @@ public class RegisterActivity extends AppCompatActivity {
             alertDialog.show();
             return;
         }
-        alertDialogBuilder
-                .setMessage("Тест на дурака пройден успешно");
-        alertDialog = alertDialogBuilder.create();
-        alertDialog.show();
-        return;
+        doRegister();
+    }
+
+    private RegisterBody getRegisterData(){
+        return new RegisterBody(name, surname, email, password);
+    }
+    private LoginBody getLoginData(){
+        return new LoginBody(email, password);
+    }
+    private void doRegister(){
+        AsyncTask.execute(() -> {
+            service.doRegister(getRegisterData()).enqueue(new Callback<RegisterBody>() {
+                @Override
+                public void onResponse(Call<RegisterBody> call, Response<RegisterBody> response) {
+                    if(response.isSuccessful()) {
+                        Toast.makeText(getApplicationContext(), "Регистрация прошла успешно. Можете авторизироваться!", Toast.LENGTH_SHORT).show();
+                        doLogin();
+                    }
+                    else if (response.code() == 400){
+                        String serverErrorMessage = ErrorUtils.parseError(response).message();
+                        Toast.makeText(getApplicationContext(), serverErrorMessage, Toast.LENGTH_SHORT).show();
+                    }
+                }
+                @Override
+                public void onFailure(Call<RegisterBody> call, Throwable t) {
+                    Toast.makeText(getApplicationContext(), t.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+                }
+
+            });
+        });
+    }
+    private void doLogin() {
+        AsyncTask.execute(() -> {
+            service.doLogin(getLoginData()).enqueue(new Callback<LoginResponse>() {
+                @Override
+                public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
+                    if (response.isSuccessful()){
+                        SharedPreferences settings = getSharedPreferences("settings", MODE_PRIVATE);
+                        SharedPreferences.Editor editor = settings.edit();
+                        editor.putString("token", response.body().getToken());
+                        Intent i = new Intent(getApplicationContext(), MainActivity.class);
+                        startActivity(i);
+                    }
+                    else if (response.code() == 401) {
+                        String serverErrorMessage = ErrorUtils.parseError(response).message();
+                        Toast.makeText(getApplicationContext(), serverErrorMessage, Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(getApplicationContext(), "Прошла неизвестная ошибка попробуйте позже!", Toast.LENGTH_SHORT).show();
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<LoginResponse> call, Throwable t) {
+                    Toast.makeText(getApplicationContext(), t.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+                }
+            });
+        });
     }
 }

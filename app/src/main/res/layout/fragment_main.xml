@@ -19,31 +19,24 @@
         android:gravity="center"
         android:orientation="vertical">
         <TextView
+            android:id="@+id/movie_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Altered Carbon"
             android:textColor="@color/white"
             android:gravity="center"
+            android:layout_marginBottom="24dp"
             android:fontFamily="@font/roboto_black"
             android:textSize="24dp">
         </TextView>
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_weight="2"
-        android:gravity="center">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="486dp">
             <ImageView
+                android:id="@+id/movie_img"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:src="@drawable/car_img"/>
-
         </LinearLayout>
     </LinearLayout>
-
 </LinearLayout>
