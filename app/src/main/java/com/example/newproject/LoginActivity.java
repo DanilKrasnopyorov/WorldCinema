@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Patterns;
@@ -14,6 +15,7 @@ import android.widget.Toast;
 
 import com.example.newproject.network.ApiHandler;
 import com.example.newproject.network.ErrorUtils;
+import com.example.newproject.network.models.DataManager;
 import com.example.newproject.network.models.LoginBody;
 import com.example.newproject.network.models.LoginResponse;
 import com.example.newproject.network.service.ApiService;
@@ -29,6 +31,9 @@ public class LoginActivity extends AppCompatActivity {
     private String email;
     private AlertDialog alertDialog;
     private AlertDialog.Builder alertDialogBuilder;
+    private SharedPreferences localStorage;
+    private SharedPreferences.Editor localStorageEditor;
+    private DataManager dataManager;
 
     ApiService service = ApiHandler.getInstance().getService();
 
@@ -36,7 +41,10 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-
+        localStorage = getSharedPreferences("settings", MODE_PRIVATE);
+        localStorageEditor = localStorage.edit();
+        dataManager = new DataManager();
+        checkAuthUser();
         emailInput = findViewById(R.id.emailInput);
         passwordInput = findViewById(R.id.passwordInput);
     }
@@ -89,8 +97,12 @@ public class LoginActivity extends AppCompatActivity {
             service.doLogin(getLoginData()).enqueue(new Callback<LoginResponse>() {
                 @Override
                 public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
-                    if(response.isSuccessful())
-                        Toast.makeText(getApplicationContext(), "Авторизация прошла успешно. Токен: " + response.body().getToken(), Toast.LENGTH_SHORT).show();
+                    if(response.isSuccessful()){
+                        localStorageEditor.putString("token", response.body().getToken());
+                        dataManager.setToken(response.body().getToken());
+                        Intent i = new Intent(getApplicationContext(), MainActivity.class);
+                        startActivity(i);
+                    }
                     else if (response.code() == 401){
                         String serverErrorMessage = ErrorUtils.parseError(response).message();
                         Toast.makeText(getApplicationContext(), serverErrorMessage, Toast.LENGTH_SHORT).show();
@@ -105,6 +117,14 @@ public class LoginActivity extends AppCompatActivity {
                 }
             });
         });
+    }
+    private void checkAuthUser(){
+        String token = localStorage.getString("token", "");
+        if(!token.equals("")){
+            dataManager.setToken(token);
+            Intent i = new Intent(getApplicationContext(), MainActivity.class);
+            startActivity(i);
+        }
     }
     private LoginBody getLoginData(){
         return new LoginBody(email, password);

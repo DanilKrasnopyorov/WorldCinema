@@ -1,7 +1,12 @@
 package com.example.newproject.network;
 
+import static android.content.Context.MODE_PRIVATE;
+
+import android.content.SharedPreferences;
+
 import androidx.annotation.NonNull;
 
+import com.example.newproject.network.models.DataManager;
 import com.example.newproject.network.service.ApiService;
 
 import java.io.IOException;
@@ -18,19 +23,20 @@ public class ApiHandler {
     private static ApiHandler mInstance;
     private static final String BASE_URL = "http://cinema.areas.su";
     private Retrofit retrofit;
-    private Integer token = 0;
+    private DataManager dataManager;
 
     public ApiHandler(){
-
         retrofit = new Retrofit.Builder()
                 .baseUrl(BASE_URL)
                 .client(getOkHttp())
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
     }
+
     private OkHttpClient getOkHttp(){
         HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
         interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
+        dataManager = new DataManager();
         OkHttpClient client = new OkHttpClient.Builder()
             .addInterceptor(interceptor)
             .addInterceptor(new Interceptor() {
@@ -38,7 +44,7 @@ public class ApiHandler {
                     @Override
                     public Response intercept(@NonNull Chain chain) throws IOException {
                         Request newRequest = chain.request().newBuilder()
-                                .addHeader("Authorization", "Bearer " + token)
+                                .addHeader("Authorization", "Bearer " + dataManager.getToken())
                                 .build();
                         return chain.proceed(newRequest);
                     }

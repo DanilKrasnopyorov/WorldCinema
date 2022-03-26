@@ -15,6 +15,7 @@ import android.widget.Toast;
 
 import com.example.newproject.network.ApiHandler;
 import com.example.newproject.network.ErrorUtils;
+import com.example.newproject.network.models.DataManager;
 import com.example.newproject.network.models.LoginBody;
 import com.example.newproject.network.models.LoginResponse;
 import com.example.newproject.network.models.RegisterBody;
@@ -37,6 +38,9 @@ public class RegisterActivity extends AppCompatActivity {
     private String repeatPassword;
     private AlertDialog.Builder alertDialogBuilder;
     private AlertDialog alertDialog;
+    private SharedPreferences localStorage;
+    private SharedPreferences.Editor localStorageEditor;
+    private DataManager dataManager;
 
     ApiService service = ApiHandler.getInstance().getService();
 
@@ -49,6 +53,7 @@ public class RegisterActivity extends AppCompatActivity {
         emailField = findViewById(R.id.emailInput);
         passwordField = findViewById(R.id.passwordInput);
         repeatPasswordField = findViewById(R.id.repeatPasswordInput);
+        dataManager = new DataManager();
     }
 
     public void moveToLoginScreen(View view) {
@@ -159,9 +164,10 @@ public class RegisterActivity extends AppCompatActivity {
                 @Override
                 public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
                     if (response.isSuccessful()){
-                        SharedPreferences settings = getSharedPreferences("settings", MODE_PRIVATE);
-                        SharedPreferences.Editor editor = settings.edit();
-                        editor.putString("token", response.body().getToken());
+                        localStorage = getSharedPreferences("settings", MODE_PRIVATE);
+                        localStorageEditor = localStorage.edit();
+                        localStorageEditor.putString("token", response.body().getToken());
+                        dataManager.setToken(response.body().getToken());
                         Intent i = new Intent(getApplicationContext(), MainActivity.class);
                         startActivity(i);
                     }
