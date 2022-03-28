@@ -104,10 +104,11 @@ public class LoginActivity extends AppCompatActivity {
                         startActivity(i);
                     }
                     else if (response.code() == 401){
-                        String serverErrorMessage = ErrorUtils.parseError(response).message();
-                        Toast.makeText(getApplicationContext(), serverErrorMessage, Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), "Такого пользователя не существует", Toast.LENGTH_SHORT).show();
                     } else {
+                        String serverErrorMessage = ErrorUtils.parseError(response).message();
                         Toast.makeText(getApplicationContext(), "Прошла неизвестная ошибка попробуйте позже!", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), serverErrorMessage, Toast.LENGTH_SHORT).show();
                     }
                 }
 
@@ -118,6 +119,10 @@ public class LoginActivity extends AppCompatActivity {
             });
         });
     }
+    private LoginBody getLoginData(){
+        return new LoginBody(email, password);
+    }
+
     private void checkAuthUser(){
         String token = localStorage.getString("token", "");
         if(!token.equals("")){
@@ -126,8 +131,4 @@ public class LoginActivity extends AppCompatActivity {
             startActivity(i);
         }
     }
-    private LoginBody getLoginData(){
-        return new LoginBody(email, password);
-    }
-
 }

@@ -1,5 +1,7 @@
 package com.example.newproject;
 
+import static androidx.constraintlayout.helper.widget.MotionEffect.TAG;
+
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -8,6 +10,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.EditText;
@@ -138,20 +141,24 @@ public class RegisterActivity extends AppCompatActivity {
     }
     private void doRegister(){
         AsyncTask.execute(() -> {
-            service.doRegister(getRegisterData()).enqueue(new Callback<RegisterBody>() {
+            service.doRegister(getRegisterData()).enqueue(new Callback<Void>() {
                 @Override
-                public void onResponse(Call<RegisterBody> call, Response<RegisterBody> response) {
-                    if(response.isSuccessful()) {
-                        Toast.makeText(getApplicationContext(), "Регистрация прошла успешно. Можете авторизироваться!", Toast.LENGTH_SHORT).show();
+                public void onResponse(Call<Void> call, Response<Void> response) {
+                    if(response.code() == 201) {
+                        Toast.makeText(getApplicationContext(), "Регистрация прошла успешно", Toast.LENGTH_SHORT).show();
                         doLogin();
                     }
-                    else if (response.code() == 400){
-                        String serverErrorMessage = ErrorUtils.parseError(response).message();
-                        Toast.makeText(getApplicationContext(), serverErrorMessage, Toast.LENGTH_SHORT).show();
+                    else if (response.code() == 200){
+                        Toast.makeText(getApplicationContext(), response.code() + "this is code and we are champions", Toast.LENGTH_SHORT);
+//                        String serverErrorMessage = ErrorUtils.parseError(response).message();
+//                        Toast.makeText(getApplicationContext(), serverErrorMessage, Toast.LENGTH_SHORT).show();
                     }
+                    else
+                        Toast.makeText(getApplicationContext(), "Произошла неизвестная ошибка. Попробуйте позже", Toast.LENGTH_SHORT).show();
                 }
                 @Override
-                public void onFailure(Call<RegisterBody> call, Throwable t) {
+                public void onFailure(Call<Void> call, Throwable t) {
+                    Toast.makeText(RegisterActivity.this, "Что-то мутим в ошибке регистрации", Toast.LENGTH_SHORT).show();
                     Toast.makeText(getApplicationContext(), t.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
                 }
 
@@ -164,6 +171,7 @@ public class RegisterActivity extends AppCompatActivity {
                 @Override
                 public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
                     if (response.isSuccessful()){
+                        Toast.makeText(RegisterActivity.this, "Что-то мутим", Toast.LENGTH_SHORT).show();
                         localStorage = getSharedPreferences("settings", MODE_PRIVATE);
                         localStorageEditor = localStorage.edit();
                         localStorageEditor.putString("token", response.body().getToken());
