@@ -33,7 +33,6 @@ public class LoginActivity extends AppCompatActivity {
     private AlertDialog.Builder alertDialogBuilder;
     private SharedPreferences localStorage;
     private SharedPreferences.Editor localStorageEditor;
-    private DataManager dataManager;
 
     ApiService service = ApiHandler.getInstance().getService();
 
@@ -43,7 +42,6 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
         localStorage = getSharedPreferences("settings", MODE_PRIVATE);
         localStorageEditor = localStorage.edit();
-        dataManager = new DataManager();
         checkAuthUser();
         emailInput = findViewById(R.id.emailInput);
         passwordInput = findViewById(R.id.passwordInput);
@@ -99,7 +97,7 @@ public class LoginActivity extends AppCompatActivity {
                 public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
                     if(response.isSuccessful()){
                         localStorageEditor.putString("token", response.body().getToken());
-                        dataManager.setToken(response.body().getToken());
+                        DataManager.token = (response.body().getToken());
                         Intent i = new Intent(getApplicationContext(), MainActivity.class);
                         startActivity(i);
                     }
@@ -126,7 +124,7 @@ public class LoginActivity extends AppCompatActivity {
     private void checkAuthUser(){
         String token = localStorage.getString("token", "");
         if(!token.equals("")){
-            dataManager.setToken(token);
+            DataManager.token = token;
             Intent i = new Intent(getApplicationContext(), MainActivity.class);
             startActivity(i);
         }

@@ -52,6 +52,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="30dp"
             android:layout_weight="1"
+            android:textColor="@color/white"
             android:fontFamily="@font/roboto_bold"
             android:text="Избранное"/>
         <ImageView
@@ -81,6 +82,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="30dp"
             android:layout_weight="1"
+            android:textColor="@color/white"
             android:fontFamily="@font/roboto_bold"
             android:text="Когда-нибудь"/>
         <ImageView
@@ -109,6 +111,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="30dp"
             android:fontFamily="@font/roboto_bold"
+            android:textColor="@color/white"
             android:layout_weight="1"
             android:text="В поездку"/>
         <ImageView

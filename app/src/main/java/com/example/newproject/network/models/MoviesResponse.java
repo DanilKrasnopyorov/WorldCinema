@@ -9,10 +9,38 @@ public class MoviesResponse {
     private String name;
     @SerializedName("description")
     private String description;
-    @SerializedName("age")
-    private Integer age;
-    @SerializedName("images")
-    private String[] images;
     @SerializedName("poster")
-    private String poster;
+    private String image;
+
+    public void setMovieId(Integer movieId) {
+        this.movieId = movieId;
+    }
+
+    public Integer getMovieId() {
+        return movieId;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+
+    public String getImage() {
+        return image;
+    }
 }

@@ -13,14 +13,17 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.newproject.R;
 import com.example.newproject.models.Movie;
+import com.example.newproject.network.models.MoviesResponse;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MoviesHolder> {
-    private ArrayList<Movie> movieList;
+    private List<MoviesResponse> movieList;
     private Context mContext;
 
-    public MoviesAdapter(ArrayList<Movie> movieList, Context context) {
+    public MoviesAdapter(List<MoviesResponse> movieList, Context context) {
         this.movieList = movieList;
         this.mContext = context;
     }
@@ -38,9 +41,9 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MoviesHold
     }
     @Override
     public void onBindViewHolder(@NonNull MoviesHolder holder, final int position){
-        final Movie movie = movieList.get(position);
+        final MoviesResponse movie = movieList.get(position);
         holder.setMovieName(movie.getName());
-        holder.setMovieImage(movie.getImg());
+        holder.setMovieImage("http://cinema.areas.su/up/images/" + movie.getImage());
     }
     public class MoviesHolder extends RecyclerView.ViewHolder{
         private TextView movieName;
@@ -50,11 +53,10 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MoviesHold
             movieName = itemView.findViewById(R.id.movie_title);
             movieImage = itemView.findViewById(R.id.movie_img);
         }
-        public void setMovieName(String name){
-            movieName.setText(name);
-        }
+        public void setMovieName(String name){ movieName.setText(name); }
         public void setMovieImage(String image){
-            movieImage.setImageDrawable(image);
+            Picasso.with(mContext)
+                    .load(image).into(movieImage);
         }
     }
 }

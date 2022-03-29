@@ -23,7 +23,6 @@ public class ApiHandler {
     private static ApiHandler mInstance;
     private static final String BASE_URL = "http://cinema.areas.su";
     private Retrofit retrofit;
-    private DataManager dataManager;
 
     public ApiHandler(){
         retrofit = new Retrofit.Builder()
@@ -36,7 +35,6 @@ public class ApiHandler {
     private OkHttpClient getOkHttp(){
         HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
         interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
-        dataManager = new DataManager();
         OkHttpClient client = new OkHttpClient.Builder()
             .addInterceptor(interceptor)
             .addInterceptor(new Interceptor() {
@@ -44,7 +42,7 @@ public class ApiHandler {
                     @Override
                     public Response intercept(@NonNull Chain chain) throws IOException {
                         Request newRequest = chain.request().newBuilder()
-                                .addHeader("Authorization", "Bearer " + dataManager.getToken())
+                                .addHeader("Authorization", "Bearer " + DataManager.token)
                                 .build();
                         return chain.proceed(newRequest);
                     }

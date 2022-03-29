@@ -43,7 +43,6 @@ public class RegisterActivity extends AppCompatActivity {
     private AlertDialog alertDialog;
     private SharedPreferences localStorage;
     private SharedPreferences.Editor localStorageEditor;
-    private DataManager dataManager;
 
     ApiService service = ApiHandler.getInstance().getService();
 
@@ -56,7 +55,6 @@ public class RegisterActivity extends AppCompatActivity {
         emailField = findViewById(R.id.emailInput);
         passwordField = findViewById(R.id.passwordInput);
         repeatPasswordField = findViewById(R.id.repeatPasswordInput);
-        dataManager = new DataManager();
     }
 
     public void moveToLoginScreen(View view) {
@@ -149,9 +147,7 @@ public class RegisterActivity extends AppCompatActivity {
                         doLogin();
                     }
                     else if (response.code() == 200){
-                        Toast.makeText(getApplicationContext(), response.code() + "this is code and we are champions", Toast.LENGTH_SHORT);
-//                        String serverErrorMessage = ErrorUtils.parseError(response).message();
-//                        Toast.makeText(getApplicationContext(), serverErrorMessage, Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), "Неверно введены данные, попробуйте ещё раз!", Toast.LENGTH_SHORT);
                     }
                     else
                         Toast.makeText(getApplicationContext(), "Произошла неизвестная ошибка. Попробуйте позже", Toast.LENGTH_SHORT).show();
@@ -161,7 +157,6 @@ public class RegisterActivity extends AppCompatActivity {
                     Toast.makeText(RegisterActivity.this, "Что-то мутим в ошибке регистрации", Toast.LENGTH_SHORT).show();
                     Toast.makeText(getApplicationContext(), t.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
                 }
-
             });
         });
     }
@@ -175,7 +170,7 @@ public class RegisterActivity extends AppCompatActivity {
                         localStorage = getSharedPreferences("settings", MODE_PRIVATE);
                         localStorageEditor = localStorage.edit();
                         localStorageEditor.putString("token", response.body().getToken());
-                        dataManager.setToken(response.body().getToken());
+                        DataManager.token = response.body().getToken();
                         Intent i = new Intent(getApplicationContext(), MainActivity.class);
                         startActivity(i);
                     }

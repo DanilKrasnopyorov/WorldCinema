@@ -3,8 +3,10 @@ package com.example.newproject;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
 import android.view.Window;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -44,4 +46,9 @@ public class MainActivity extends AppCompatActivity implements  BottomNavigation
         return false;
     }
 
+    public void moveToLoginScreen(View view) {
+        Intent i = new Intent(getApplicationContext(), LoginActivity.class);
+        finish();
+        startActivity(i);
+    }
 }
