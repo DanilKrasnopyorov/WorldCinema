@@ -13,6 +13,9 @@
         android:theme="@style/Theme.NewProject"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".ChooseIconCollectionActivity"
+            android:exported="false" />
+        <activity
             android:name=".CreateCollectionActivity"
             android:exported="false" />
         <activity
@@ -41,7 +44,7 @@
         </activity>
         <activity
             android:name=".MainActivity"
-            android:exported="true"></activity>
+            android:exported="true" />
     </application>
 
 </manifest>

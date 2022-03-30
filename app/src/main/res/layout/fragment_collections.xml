@@ -25,8 +25,10 @@
             android:textSize="17dp"
             android:textColor="@color/white"
             android:fontFamily="@font/roboto_bold"/>
-        <ImageView
+        <ImageButton
+            android:onClick="moveToCreateCollection"
             android:layout_width="wrap_content"
+            android:background="@color/transparent"
             android:layout_height="wrap_content"
             android:src="@drawable/ic_plus_add"/>
     </LinearLayout>

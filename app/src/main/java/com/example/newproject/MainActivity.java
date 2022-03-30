@@ -51,4 +51,9 @@ public class MainActivity extends AppCompatActivity implements  BottomNavigation
         finish();
         startActivity(i);
     }
+
+    public void moveToCreateCollection(View view) {
+        Intent i = new Intent(getApplicationContext(), CreateCollectionActivity.class);
+        startActivity(i);
+    }
 }

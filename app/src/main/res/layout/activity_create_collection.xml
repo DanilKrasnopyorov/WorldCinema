@@ -28,7 +28,7 @@ tools:context=".CreateCollectionActivity">
             android:layout_weight="1"
             android:gravity="center"
             android:layout_height="wrap_content"
-            android:text="Обсуждения"
+            android:text="Создать коллекцию"
             android:textSize="17dp"
             android:textColor="@color/white"
             android:fontFamily="@font/roboto_bold"/>
@@ -37,10 +37,14 @@ tools:context=".CreateCollectionActivity">
         android:layout_width="match_parent"
         android:paddingLeft="16dp"
         android:paddingRight="16dp"
+        android:orientation="vertical"
+        android:gravity="center"
         android:layout_height="wrap_content">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:orientation="horizontal"
             android:background="@drawable/corners_bg">
             <EditText
                 android:id="@+id/passwordInput"
@@ -59,10 +63,51 @@ tools:context=".CreateCollectionActivity">
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
+            android:orientation="horizontal"
+            android:layout_marginBottom="44dp"
+            android:gravity="center"
             android:layout_height="wrap_content">
-            <ImageView
-                android:layout_width="72dp"
-                android:layout_height="72dp"/>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <ImageView
+                    android:layout_width="72dp"
+                    android:src="@drawable/ic_collection"
+                    android:layout_height="72dp"/>
+            </LinearLayout>
+            <com.google.android.material.button.MaterialButton
+                android:onClick="addIcon"
+                android:id="@+id/registerButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="24dp"
+                android:text="Выбрать иконку"
+                android:paddingTop="13dp"
+                android:paddingBottom="13dp"
+                android:textAllCaps="false"
+                android:textColor="@color/orange"
+                android:textSize="15sp"
+                app:backgroundTint="@android:color/transparent"
+                app:cornerRadius="3dp"
+                app:strokeColor="@color/gray"
+                app:strokeWidth="2dp" />
         </LinearLayout>
+
+
+        <com.google.android.material.button.MaterialButton
+            android:onClick="saveIcon"
+            android:id="@+id/loginButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Сохранить"
+            android:paddingTop="13dp"
+            android:paddingBottom="13dp"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:layout_marginBottom="16dp"
+            android:textSize="15sp"
+            app:backgroundTint="@color/orange"
+            app:cornerRadius="3dp" />
     </LinearLayout>
+
 </LinearLayout>
