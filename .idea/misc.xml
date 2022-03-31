@@ -17,6 +17,8 @@
         <entry key="..\:/Users/Administrator/AndroidStudioProjects/NewProject/app/src/main/res/drawable/bottom_navigation_selector.xml" value="0.237" />
         <entry key="..\:/Users/Administrator/AndroidStudioProjects/NewProject/app/src/main/res/drawable/car.xml" value="0.337" />
         <entry key="..\:/Users/Administrator/AndroidStudioProjects/NewProject/app/src/main/res/drawable/chat_bg_gray.xml" value="0.284" />
+        <entry key="..\:/Users/Administrator/AndroidStudioProjects/NewProject/app/src/main/res/drawable/chat_item_bg_gray.xml" value="0.339" />
+        <entry key="..\:/Users/Administrator/AndroidStudioProjects/NewProject/app/src/main/res/drawable/chat_item_bg_orange.xml" value="0.339" />
         <entry key="..\:/Users/Administrator/AndroidStudioProjects/NewProject/app/src/main/res/drawable/corners_bg.xml" value="0.196" />
         <entry key="..\:/Users/Administrator/AndroidStudioProjects/NewProject/app/src/main/res/drawable/ic_wh_heart.xml" value="0.1605" />
         <entry key="..\:/Users/Administrator/AndroidStudioProjects/NewProject/app/src/main/res/drawable/main_button_bg.xml" value="0.337" />
@@ -25,7 +27,7 @@
         <entry key="..\:/Users/Administrator/AndroidStudioProjects/NewProject/app/src/main/res/drawable/rounded_image.xml" value="0.337" />
         <entry key="..\:/Users/Administrator/AndroidStudioProjects/NewProject/app/src/main/res/font/fonts.xml" value="0.396875" />
         <entry key="..\:/Users/Administrator/AndroidStudioProjects/NewProject/app/src/main/res/layout/activity_bottom_navigation.xml" value="0.12" />
-        <entry key="..\:/Users/Administrator/AndroidStudioProjects/NewProject/app/src/main/res/layout/activity_chat.xml" value="0.2796875" />
+        <entry key="..\:/Users/Administrator/AndroidStudioProjects/NewProject/app/src/main/res/layout/activity_chat.xml" value="0.25" />
         <entry key="..\:/Users/Administrator/AndroidStudioProjects/NewProject/app/src/main/res/layout/activity_choose_icon_collection.xml" value="0.22" />
         <entry key="..\:/Users/Administrator/AndroidStudioProjects/NewProject/app/src/main/res/layout/activity_create_collection.xml" value="0.18" />
         <entry key="..\:/Users/Administrator/AndroidStudioProjects/NewProject/app/src/main/res/layout/activity_discuss.xml" value="0.25" />
@@ -34,6 +36,7 @@
         <entry key="..\:/Users/Administrator/AndroidStudioProjects/NewProject/app/src/main/res/layout/activity_profile.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/Administrator/AndroidStudioProjects/NewProject/app/src/main/res/layout/activity_register.xml" value="0.25" />
         <entry key="..\:/Users/Administrator/AndroidStudioProjects/NewProject/app/src/main/res/layout/activity_splash_screen.xml" value="0.3619791666666667" />
+        <entry key="..\:/Users/Administrator/AndroidStudioProjects/NewProject/app/src/main/res/layout/another_message_item.xml" value="0.22" />
         <entry key="..\:/Users/Administrator/AndroidStudioProjects/NewProject/app/src/main/res/layout/chat_item.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/Administrator/AndroidStudioProjects/NewProject/app/src/main/res/layout/fragment_collections.xml" value="0.25" />
         <entry key="..\:/Users/Administrator/AndroidStudioProjects/NewProject/app/src/main/res/layout/fragment_compilation.xml" value="0.22" />
@@ -44,6 +47,7 @@
         <entry key="..\:/Users/Administrator/AndroidStudioProjects/NewProject/app/src/main/res/layout/fragment_profile.xml" value="0.25" />
         <entry key="..\:/Users/Administrator/AndroidStudioProjects/NewProject/app/src/main/res/layout/frament_collections.xml" value="0.22239583333333332" />
         <entry key="..\:/Users/Administrator/AndroidStudioProjects/NewProject/app/src/main/res/layout/movies_list_item.xml" value="0.25" />
+        <entry key="..\:/Users/Administrator/AndroidStudioProjects/NewProject/app/src/main/res/layout/my_message_item.xml" value="0.25" />
         <entry key="..\:/Users/Administrator/AndroidStudioProjects/NewProject/app/src/main/res/menu/bottom_nav_menu.xml" value="0.22" />
         <entry key="..\:/Users/Administrator/AndroidStudioProjects/NewProject/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.193" />
       </map>

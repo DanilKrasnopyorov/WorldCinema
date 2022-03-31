@@ -42,7 +42,7 @@ public class ApiHandler {
                     @Override
                     public Response intercept(@NonNull Chain chain) throws IOException {
                         Request newRequest = chain.request().newBuilder()
-                                .addHeader("Authorization", "Bearer " + DataManager.token)
+                                .addHeader("Authorization", "Bearer " + "1328899")
                                 .build();
                         return chain.proceed(newRequest);
                     }
