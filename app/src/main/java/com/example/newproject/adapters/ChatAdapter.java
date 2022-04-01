@@ -42,7 +42,9 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ChatHolder> {
         }
         public void setMessageAvatar(String imageUrl) {
             Picasso.with(mContext)
-                    .load(imageUrl).into(messageAvatar);
+                    .load(imageUrl)
+                    .error(R.drawable.empty_img)
+                    .into(messageAvatar);
         }
 
         public void setMessageDate(String date) {
@@ -87,7 +89,10 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ChatHolder> {
     @Override
     public void onBindViewHolder(@NonNull ChatHolder holder, final int position){
         final ChatResponse message = messagesList.get(position);
-        holder.setMessageUsername(message.getFirstName() + " " + message.getLastName());
+        if(message.getFirstName() != null)
+            holder.setMessageUsername(message.getFirstName() + " " + message.getLastName());
+        else
+            holder.setMessageUsername(message.getAuthorName());
         holder.setMessageAvatar("http://cinema.areas.su/up/images/" + message.getAvatar());
         holder.setMessageDate(message.getDate());
         holder.setMessageText(message.getText());

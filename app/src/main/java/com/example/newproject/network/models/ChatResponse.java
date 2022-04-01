@@ -17,6 +17,16 @@ public class ChatResponse {
     private String avatar;
     @SerializedName("text")
     private String text;
+    @SerializedName("authorName")
+    private String authorName;
+
+    public String getAuthorName() {
+        return authorName;
+    }
+
+    public void setAuthorName(String authorName) {
+        this.authorName = authorName;
+    }
 
     public String getAvatar() {
         return avatar;

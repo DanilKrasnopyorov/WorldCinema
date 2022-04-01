@@ -1,6 +1,7 @@
 package com.example.newproject.adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.media.Image;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +12,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.newproject.ChatActivity;
 import com.example.newproject.R;
 import com.example.newproject.models.Movie;
 import com.example.newproject.network.models.MoviesResponse;
@@ -44,6 +46,16 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MoviesHold
         final MoviesResponse movie = movieList.get(position);
         holder.setMovieName(movie.getName());
         holder.setMovieImage("http://cinema.areas.su/up/images/" + movie.getImage());
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(mContext, ChatActivity.class);
+                i.putExtra("chatId", movie.getMovieId());
+                i.putExtra("movieName", movie.getName());
+                mContext.startActivity(i);
+            }
+        });
     }
     public class MoviesHolder extends RecyclerView.ViewHolder{
         private TextView movieName;

@@ -58,6 +58,7 @@ public class ProfileFragment extends Fragment {
                     if(response.isSuccessful()){
                         Picasso.with(getContext())
                                 .load("http://cinema.areas.su/up/images" + response.body().get(0).getAvatar())
+                                .error(R.drawable.empty_img_lg)
                                 .into(userAvatar);
                         userFullName.setText(response.body().get(0).getFirstName() + " " + response.body().get(0).getLastName());
                         userEmail.setText(response.body().get(0).getEmail());

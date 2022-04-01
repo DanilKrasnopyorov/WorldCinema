@@ -1,70 +1,105 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/brown"
-    android:paddingTop="55dp"
     android:orientation="vertical"
     tools:context=".DiscussActivity">
+
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_messages"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/id_bottom"
+        android:layout_below="@id/id_top"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="-4dp"
+        android:layout_marginEnd="4dp"
+        android:scrollbars="vertical" />
     <LinearLayout
+        android:id="@+id/id_top"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingLeft="9dp"
-        android:paddingRight="9dp"
-        android:layout_marginBottom="19dp"
         android:gravity="center"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:paddingBottom="15dp"
+        android:paddingLeft="9dp"
+        android:paddingTop="55dp"
+        android:paddingRight="9dp">
+
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_arrow_left"/>
+            android:onClick="moveToMainActivity"
+            android:src="@drawable/ic_arrow_left" />
+
         <TextView
+            android:id="@+id/chatName"
             android:layout_width="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:fontFamily="@font/roboto_bold"
+            android:gravity="center"
             android:text="Игра престолов"
-            android:textSize="17dp"
             android:textColor="@color/white"
-            android:fontFamily="@font/roboto_bold"/>
+            android:textSize="17dp" />
     </LinearLayout>
-<!--    <LinearLayout-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:orientation="vertical"-->
-<!--        android:layout_marginBottom="24dp"-->
-<!--        android:layout_height="wrap_content">-->
-<!--        <LinearLayout-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:gravity="center">-->
-<!--            <LinearLayout-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:paddingTop="7dp"-->
-<!--                android:paddingBottom="7dp"-->
-<!--                android:paddingLeft="16dp"-->
-<!--                android:paddingRight="16dp"-->
-<!--                android:background="@drawable/chat_bg_gray">-->
-<!--                    <TextView-->
-<!--                        android:layout_width="wrap_content"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        android:textColor="@color/white"-->
-<!--                        android:text="19 апреля"/>-->
-<!--            </LinearLayout>-->
-<!--        </LinearLayout>-->
-<!--    </LinearLayout>-->
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
         android:paddingLeft="16dp"
         android:orientation="vertical"
         android:paddingRight="16dp">
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recycler_messages"
-            android:layout_width="match_parent"
-            android:scrollbars="vertical"
-            android:layout_height="match_parent"/>
+
     </LinearLayout>
-</LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/id_bottom"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="2dp"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:paddingLeft="16dp"
+        android:paddingTop="8dp"
+        android:paddingRight="16dp"
+        android:paddingBottom="42dp">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/corners_bg"
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/messageInput"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="2dp"
+                android:layout_marginBottom="16dp"
+                android:background="@color/brown"
+                android:hint="Название"
+                android:paddingLeft="16dp"
+                android:paddingTop="7dp"
+                android:paddingRight="16dp"
+                android:paddingBottom="7dp"
+                android:textColor="@color/white"
+                android:textColorHint="@color/white_gray2" />
+        </LinearLayout>
+
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:background="@color/transparent"
+            android:onClick="sendNewMessage"
+            android:src="@drawable/ic_send_message" />
+    </LinearLayout>
+</RelativeLayout>
