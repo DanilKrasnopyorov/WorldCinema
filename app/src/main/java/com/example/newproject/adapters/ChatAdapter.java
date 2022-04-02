@@ -77,7 +77,7 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ChatHolder> {
     @Override
     public int getItemViewType(int position){
         ChatResponse message = messagesList.get(position);
-        if(message.getFirstName() == "")
+        if(message.getFirstName().equals("Ivan"))
             return VIEW_TYPE_MESSAGE_ME;
         else
             return VIEW_TYPE_MESSAGE_OTHER;

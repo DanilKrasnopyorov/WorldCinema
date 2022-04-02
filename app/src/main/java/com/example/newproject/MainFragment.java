@@ -28,8 +28,6 @@ import retrofit2.Response;
 
 public class MainFragment extends Fragment {
     private ApiService service = ApiHandler.getInstance().getService();
-//    private ArrayList<Movie> movieList;
-//    private Context mContext;
     private MoviesAdapter listAdapter;
     private List<MoviesResponse> movieList = new ArrayList<>();
     private RecyclerView recyclerView;
@@ -50,12 +48,15 @@ public class MainFragment extends Fragment {
     private void InitUI (View view){
         recyclerView = view.findViewById(R.id.recycler_view);
     }
+
+    //Получение списка фильмов с сервера
     private void getMovies(){
         AsyncTask.execute(() -> {
             service.getMovies("new").enqueue(new Callback<List<MoviesResponse>>() {
                 @Override
                 public void onResponse(Call<List<MoviesResponse>> call, Response<List<MoviesResponse>> response) {
                     if(response.isSuccessful()){
+                        //Добавление полученных данных в RecyclerView для вывода данных
                         movieList = response.body();
                         listAdapter = new MoviesAdapter(movieList, getContext());
                         SnapHelper snapHelper = new PagerSnapHelper();

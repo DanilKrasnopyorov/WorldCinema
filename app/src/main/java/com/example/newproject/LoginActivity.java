@@ -47,6 +47,7 @@ public class LoginActivity extends AppCompatActivity {
         passwordInput = findViewById(R.id.passwordInput);
     }
 
+    //Валидация введённых данных пользователя в форме авторизации
     public void loginUser(View view) {
         password = passwordInput.getText().toString();
         email = emailInput.getText().toString();
@@ -90,14 +91,17 @@ public class LoginActivity extends AppCompatActivity {
         Intent i = new Intent(LoginActivity.this, RegisterActivity.class);
         startActivity(i);
     }
+    //Авторизация пользователя в системе
     private void doLogin(){
         AsyncTask.execute(() -> {
             service.doLogin(getLoginData()).enqueue(new Callback<LoginResponse>() {
                 @Override
                 public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
                     if(response.isSuccessful()){
+                        //Сохранение токена в sharedPreferences
                         localStorageEditor.putString("token", response.body().getToken());
                         DataManager.token = (response.body().getToken());
+                        //Переход на главную страницу
                         Intent i = new Intent(getApplicationContext(), MainActivity.class);
                         startActivity(i);
                     }
@@ -121,6 +125,7 @@ public class LoginActivity extends AppCompatActivity {
         return new LoginBody(email, password);
     }
 
+    //Проверка авторизован ли пользователь или нет, по токену
     private void checkAuthUser(){
         String token = localStorage.getString("token", "");
         if(!token.equals("")){

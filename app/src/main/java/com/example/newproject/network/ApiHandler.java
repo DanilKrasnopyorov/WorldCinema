@@ -19,12 +19,14 @@ import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
+//Сервис для работы с RestAPI
 public class ApiHandler {
     private static ApiHandler mInstance;
     private static final String BASE_URL = "http://cinema.areas.su";
     private Retrofit retrofit;
 
     public ApiHandler(){
+        //Cоздание экземпляра библиотеки для RestAPI Retrofit
         retrofit = new Retrofit.Builder()
                 .baseUrl(BASE_URL)
                 .client(getOkHttp())
@@ -49,13 +51,13 @@ public class ApiHandler {
                 }).build();
         return client;
     }
-    //будет получать экземпляр нашего ApiHandler
+    //Метод получающий экземпляр нашего ApiHandler
     public static ApiHandler getInstance(){
         if(mInstance == null)
             mInstance = new ApiHandler();
         return mInstance;
     }
-    //класс у которого вызываем запросы к API
+    //Класс у которого вызываем запросы к API
     public ApiService getService(){
         return retrofit.create(ApiService.class);
     }

@@ -62,12 +62,14 @@ public class ChatActivity extends AppCompatActivity {
         Intent i = new Intent(getApplicationContext(), MainActivity.class);
         startActivity(i);
     }
+    //Получение сообщений с сервера по указанному фильму
     private void getMessages(){
         AsyncTask.execute(() -> {
             service.getChatMessages(1).enqueue(new Callback<List<ChatResponse>>() {
                 @Override
                 public void onResponse(Call<List<ChatResponse>> call, Response<List<ChatResponse>> response) {
                     if(response.isSuccessful()){
+                        //Заполнение RecyclerView списка сообщениями с сервера
                         messagesList = response.body();
                         chatAdapter = new ChatAdapter(messagesList, getApplicationContext());
                         SnapHelper snapHelper = new PagerSnapHelper();
@@ -79,11 +81,10 @@ public class ChatActivity extends AppCompatActivity {
                     } else if(response.code() == 400)
                         Toast.makeText(getApplicationContext(), "Вы не авторизированы! Попробуйте зайти позже!", Toast.LENGTH_SHORT).show();
                     else{
-//                        String serverErrorMessage = ErrorUtils.parseError(response).message();
-//                        Toast.makeText(getApplicationContext(), serverErrorMessage, Toast.LENGTH_SHORT).show();
+                        String serverErrorMessage = ErrorUtils.parseError(response).message();
+                        Toast.makeText(getApplicationContext(), serverErrorMessage, Toast.LENGTH_SHORT).show();
                     }
                 }
-
                 @Override
                 public void onFailure(Call<List<ChatResponse>> call, Throwable t) {
                     Toast.makeText(getApplicationContext(), t.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
@@ -91,12 +92,14 @@ public class ChatActivity extends AppCompatActivity {
             });
         });
     }
+    //Отправка сообщения в чат
     private void sendMessage(){
         AsyncTask.execute(() -> {
             service.sendMessage(chatId, new MessageBody(senderMessage)).enqueue(new Callback<ChatResponse>() {
                 @Override
                 public void onResponse(Call<ChatResponse> call, Response<ChatResponse> response) {
                     if(response.isSuccessful()){
+                        //Добавление отправленного сообщения в RecyclerView
                         messagesList.add(response.body());
                         chatAdapter = new ChatAdapter(messagesList, getApplicationContext());
                         SnapHelper snapHelper = new PagerSnapHelper();

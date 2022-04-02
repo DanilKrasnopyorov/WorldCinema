@@ -11,7 +11,7 @@
         android:title="@string/title_compilation"/>
     <item
         android:id="@+id/navigation_collections"
-        android:icon="@drawable/ic_collection"
+        android:icon="@drawable/ic_collection_item"
         android:title="@string/title_collections"/>
     <item
         android:id="@+id/navigation_profile"

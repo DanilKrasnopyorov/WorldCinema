@@ -61,7 +61,7 @@ public class RegisterActivity extends AppCompatActivity {
         Intent i = new Intent(RegisterActivity.this, LoginActivity.class);
         startActivity(i);
     }
-
+    //Валидация заполненной формы пользователя
     public void registerUser(View view) {
         name = nameField.getText().toString();
         surname = surnameField.getText().toString();
@@ -130,19 +130,21 @@ public class RegisterActivity extends AppCompatActivity {
         }
         doRegister();
     }
-
     private RegisterBody getRegisterData(){
         return new RegisterBody(name, surname, email, password);
     }
     private LoginBody getLoginData(){
         return new LoginBody(email, password);
     }
+
+    //Отправка запроса на регистрацию пользователя
     private void doRegister(){
         AsyncTask.execute(() -> {
             service.doRegister(getRegisterData()).enqueue(new Callback<Void>() {
                 @Override
                 public void onResponse(Call<Void> call, Response<Void> response) {
                     if(response.code() == 201) {
+                        //При успешной регистрации происходит отправка запроса на авторизацию пользователя
                         Toast.makeText(getApplicationContext(), "Регистрация прошла успешно", Toast.LENGTH_SHORT).show();
                         doLogin();
                     }
@@ -160,17 +162,19 @@ public class RegisterActivity extends AppCompatActivity {
             });
         });
     }
+    //Авторизация пользователя для получения токена и сохранения в памяти устройства
     private void doLogin() {
         AsyncTask.execute(() -> {
             service.doLogin(getLoginData()).enqueue(new Callback<LoginResponse>() {
                 @Override
                 public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
                     if (response.isSuccessful()){
-                        Toast.makeText(RegisterActivity.this, "Что-то мутим", Toast.LENGTH_SHORT).show();
+                        //Сохранение токена в SharedPreferences
                         localStorage = getSharedPreferences("settings", MODE_PRIVATE);
                         localStorageEditor = localStorage.edit();
                         localStorageEditor.putString("token", response.body().getToken());
                         DataManager.token = response.body().getToken();
+                        //Переход на главную страницу
                         Intent i = new Intent(getApplicationContext(), MainActivity.class);
                         startActivity(i);
                     }

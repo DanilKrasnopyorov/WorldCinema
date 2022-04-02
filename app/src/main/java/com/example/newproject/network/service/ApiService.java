@@ -16,7 +16,7 @@ import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
-
+//Интерфейс с вспомогательными функциями для запросов
 public interface ApiService {
 
     @POST("/auth/login")
